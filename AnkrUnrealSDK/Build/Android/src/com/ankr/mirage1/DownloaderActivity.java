@@ -45,6 +45,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import io.github.pixee.security.BoundedLineReader;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -167,7 +168,7 @@ public class DownloaderActivity extends Activity implements IDownloaderClient {
 				BufferedReader bufferedFileCache = new BufferedReader(fileCache);
 				List<String> lines = new ArrayList<String>();
 				String line = null;
-				while ((line = bufferedFileCache.readLine()) != null) {
+				while ((line = BoundedLineReader.readLine(bufferedFileCache, 5_000_000)) != null) {
 					lines.add(line);
 				}
 				bufferedFileCache.close();
